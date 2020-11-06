@@ -60,9 +60,50 @@ a:hover{
 .search > .fa-search {
 	background: #57bc4c;
 	color: #fff;
-	font-size: 2.5em;
+	font-size: 2.2em;
 	width: 50px;
 	height: 32px;
 	line-height: 32px;
 	text-align: center;
+	vertical-align: middle;
+}
+.cart-container {
+	position: relative;
+	float: right;
+	margin-top: 6px;
+	margin-left: 60px;
+}
+.cart {
+	background: #F9F9F9;
+	border: 1px solid #ddd;
+	line-height: 31px;
+	/* 修改光标的样式 */
+	cursor: pointer;
+	position: relative; /*只有定位了的元素才能使用z-index*/
+	z-index: 1;
+	/*border-bottom-color: #fff;  下边框颜色*/
+	border-bottom: none;
+}
+.cart > .fa {			/*购物车+小三角*/
+	padding-left: 0.6em;
+	padding-right: 0.6em;
+	color: #57BC4C;
+}
+.cart > .caret {		/*小三角的动画基础类*/
+	transform: rotate(0);
+	transition: all  .3s;	/*渐变动画*/
+}
+.cart > .caret-rotate {	/*小三角的动画目标类*/
+	transform: rotate(180deg);
+}
+.cart-container > .dropdown {
+	position: absolute; /*绝对定位的元素可以处于其他元素上方*/
+	top: 31px;
+	right: 0;
+	border: 1px solid #ddd;
+	/* padding: 2em  3em  2em  3em;   上右下左*/
+	/* padding: 2em 3em 2em;  上右下，左和右的值相同 */
+	padding: 2em  3em;  /*上右， 下和上相同，左和右相同*/
+	width: 262px;
+	background: #fff;	/*DIV元素的默认背景色为透明色*/
 }
