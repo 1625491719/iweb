@@ -1,170 +1,745 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="icon" href="img/favicon.ico">
-	<title>iweb在线课堂</title>
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" type="text/css" href="./font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css"/>
-	<style>
-		.topbar {
-			width: 100%;
-			height: 29px;
-			line-height: 29px;
-			background: #f9f9f9;
-			border-bottom: 1px solid #eee;
-			text-align: right;
-		}
-		.container {
-			width: 1000px;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid #aaa;	/*仅供测试用*/
-		}
-		.topbar > .container > a,
-		.topbar > .container > span {	/*复杂选择器：> 选择孩子，逗号表示并列选多个*/
-			padding-left: 1em;
-		}
-		.theme {			/*主题色*/
-		}
-		.theme-reverse {	/*主题色的反色*/
-			color: #f60;	
-		}
-		.searchbar {
-			width: 100%;
-			background: #fff;
-		}
-		.searchbar > .container {
-			padding-top: 2em;
-			padding-bottom: 2em;
-		}
-		.search {
-			float: right;  /*搜索条右浮动*/
-			margin-top: 6px;
-		}
-		.search > input {
-			width: 430px;
-			height: 32px;
-			border: 1px solid #ccc;
-			/* 输入框获得焦点时的外围轮廓线 */
-			outline: none;
-			padding-left: .6em;		/*CSS中约定：0.8可简写为.8*/
-			padding-right: .6em;
-			vertical-align: middle; /*行内块元素与同一行中内容竖直对齐*/
-		}
-		.search > .fa-search {
-			background: #57bc4c;
-			color: #fff;
-			font-size: 2.2em;
-			width: 50px;
-			height: 32px;
-			line-height: 32px;	/*文字竖直方向上居中*/
-			text-align: center; /*文字水平方向上居中*/
-			vertical-align: middle; /*行内块元素与同一行中内容竖直对齐*/
-		}
-		.cart-container {
-			/* 修改购物车容器的定位方式，为下拉菜单提供定位参照物，但不脱离文档流 */
-			position: relative;
-			float: right;
-			margin-top: 6px;
-			margin-left: 20px;
-		}
-		.cart {
-			background: #f9f9f9;
-			border: 1px solid #ddd;
-			line-height: 31px;
-			/* 修改光标的样式 */
-			cursor: pointer;
-			position: relative; /*只有定位了的元素才能使用z-index*/
-			z-index: 1;
-			/*border-bottom-color: #fff;  下边框颜色*/
-			border-bottom: none;
-		}
-		.cart > .fa {			/*购物车+小三角*/
-			padding-left: 0.6em;
-			padding-right: 0.6em;
-			color: #57BC4C;
-		}
-		.cart > .caret {		/*小三角的动画基础类*/
-			transform: rotate(0);
-			transition: all  .3s;	/*渐变动画*/
-		}
-		.cart > .caret-rotate {	/*小三角的动画目标类*/
-			transform: rotate(180deg);
-		}
-		.cart-container > .dropdown {
-			position: absolute; /*绝对定位的元素可以处于其他元素上方*/
-			top: 31px;
-			right: 0;
-			border: 1px solid #ddd;
-			/* padding: 2em  3em  2em  3em;   上右下左*/
-			/* padding: 2em 3em 2em;  上右下，左和右的值相同 */
-			padding: 2em  3em;  /*上右， 下和上相同，左和右相同*/
-			width: 262px;
-			background: #fff;	/*DIV元素的默认背景色为透明色*/
-		}
-	</style>
-</head>
-<body>
-	<!-- 顶部条 -->
-	<div class="topbar">
-		<div class="container">
-			<a href="#">
-				<span class="fa fa-star"></span>
-				收藏i前端
-			</a>
-			<a href="#">
-				<span class="fa fa-mobile-phone fa-lg"></span>
-				<span class="treve">
-					下载手机客户端
-				</span>
-			</a>
-			<span>
-				<span class="fa fa-envelope"></span>
-				反馈邮箱：iweb@126.com
-			</span>
-			<span>
-				<span class="fa fa-mobile-phone fa-lg"></span>
-				客服热线：4008-200-200
-			</span>
-		</div>
-	</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="img/favicon.ico" />
+    <title>iWeb在线课堂</title>
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/font-awesome.css" />
+    <style>
+      /* 顶部条 */
+      .topbar {
+        width: 100%;
+        height: 29px;
+        line-height: 29px;
+        background: #f9f9f9;
+        border-bottom: 1px solid #eee;
+        text-align: right;
+      }
+      .container {
+        width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        /* border: 1px solid #aaa;	仅供测试用 */
+      }
+      .topbar > .container > a,
+      .topbar > .container > span {
+        /*复杂选择器：> 选择孩子，逗号表示并列选多个*/
+        padding-left: 1em;
+      }
+      .theme {
+        /*主题色*/
+      }
+      .theme-reverse {
+        /*主题色的反色*/
+        color: #f60;
+      }
+      /* 搜索条 */
+      .searchbar {
+        width: 100%;
+        background: #fff;
+      }
+      .searchbar > .container {
+        padding-top: 2em;
+        padding-bottom: 2em;
+      }
+      .search {
+        float: right; /*搜索条右浮动*/
+        margin-top: 6px;
+      }
+      .search > input {
+        width: 430px;
+        height: 32px;
+        border: 1px solid #ccc;
+        /* 输入框获得焦点时的外围轮廓线 */
+        outline: none;
+        padding-left: 0.6em; /*CSS中约定：0.8可简写为.8*/
+        padding-right: 0.6em;
+        vertical-align: middle; /*行内块元素与同一行中内容竖直对齐*/
+      }
+      .search > .fa-search {
+        background: #57bc4c;
+        color: #fff;
+        font-size: 2.2em;
+        width: 50px;
+        height: 32px;
+        line-height: 32px; /*文字竖直方向上居中*/
+        text-align: center; /*文字水平方向上居中*/
+        vertical-align: middle; /*行内块元素与同一行中内容竖直对齐*/
+      }
+      .cart-container {
+        /* 修改购物车容器的定位方式，为下拉菜单提供定位参照物，但不脱离文档流 */
+        position: relative;
+        float: right;
+        margin-top: 6px;
+        margin-left: 20px;
+      }
+      .cart {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        line-height: 30px;
+        /* 修改光标的样式 */
+        cursor: pointer;
+        position: relative; /*只有定位了的元素才能使用z-index*/
+        z-index: 1;
+        /*border-bottom-color: #fff;  下边框颜色*/
+        /* border-bottom: none; */
+      }
+      .cart.open {
+        line-height: 31px;
+        background-color: #fff;
+        border-bottom: none;
+      }
+      .cart > .fa {
+        /*购物车+小三角*/
+        padding-left: 0.6em;
+        padding-right: 0.6em;
+        color: #57bc4c;
+      }
+      .cart > .caret {
+        /*小三角的动画基础类*/
+        transform: rotate(0);
+        transition: all 0.3s; /*渐变动画*/
+      }
+      .cart > .caret-rotate {
+        /*小三角的动画目标类*/
+        transform: rotate(180deg);
+      }
+      .cart-container > .dropdown {
+        position: absolute; /*绝对定位的元素可以处于其他元素上方*/
+        top: 31px;
+        right: 0;
+        border: 1px solid #ddd;
+        /* padding: 2em  3em  2em  3em;   上右下左*/
+        /* padding: 2em 3em 2em;  上右下，左和右的值相同 */
+        padding: 2em 3em; /*上右， 下和上相同，左和右相同*/
+        width: 262px;
+        background: #fff; /*DIV元素的默认背景色为透明色*/
+        display: none;
+      }
+      .cart-container > .dropdown.open {
+        display: block;
+      }
+      /* 导航栏 */
+      .navbar {
+        height: 42px;
+        background: #57bc4c;
+        border-bottom: 2px solid #c1eebd;
+      }
+      .navbar .nav {
+        float: left;
+        height: 40px;
+      }
+      .navbar .nav_user {
+        float: right;
+      }
+      .navbar .nav ul {
+        list-style: none;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+      }
+      .navbar .nav li {
+        float: left;
+        font-family: "Microsoft YaHei";
+        height: 40px;
+        font-size: 15px;
+        text-align: center;
+        line-height: 40px;
+        padding: 0 24px;
+      }
+      .navbar .nav li a {
+        color: #fff;
+      }
+      .navbar .nav_user {
+        width: 140px;
+        height: 40px;
+        line-height: 38px;
+        text-align: center;
+        background-color: #77c558;
+      }
+      .navbar .nav_user p {
+        margin: 0px;
+        padding: 0;
+        font-size: 15px;
+        color: #fff;
+      }
+      .navbar .nav_user p a {
+        color: #fff;
+        margin: 0 5px;
+      }
+      .navbar .nav_user p a:hover {
+        color: rgb(255, 255, 153);
+      }
+      .navbar .nav li.active {
+        background-color: #3da232;
+      }
+      .navbar .nav li:hover {
+        background-color: #4aaf3f;
+      }
 
-	<!-- 搜索条 -->
-	<div class="searchbar">
-		<div class="container">
-			<!-- 1.LOGO -->
-			<img src="img/logo.png" alt="iWeb LOGO">
-			<!-- 3.我的购物车 -->
-			<div class="cart-container">
-				<!-- 购物车：z-index要高于“下拉菜单” -->
-				<div class="cart" id="myCart">
-					<span class="fa fa-shopping-cart fa-lg"></span>
-					<span>我的购物车(<b>0</b>)</span>
-					<span class="fa fa-caret-down caret" id="caret"></span>
-				</div>
-				<!-- 下拉菜单 -->
-				<div class="dropdown">
-					请登录后查看您的购物车
-				</div>
-			</div>
-			
-			<!-- 2.输入框 -->
-			<div class="search">
-				<input type="text" placeholder="课程搜索"><span class="fa fa-search fa-lg"></span>
-			</div>
-		</div>
-	</div>
-	<script>
-		// 鼠标进入“我的购物车”则后面的小三角开始旋转；离开则转回来
-		myCart.onmouseenter = ()=>{
-			caret.classList.add('caret-rotate')
-		}
-		myCart.onmouseleave = ()=>{
-			caret.classList.remove('caret-rotate')
-		}
-	</script>
-</body>
+      /* 图片轮播 */
+      .banner {
+        height: 380px;
+        position: relative;
+        border-bottom: 3px solid #ddd;
+      }
+      .banner li {
+        list-style: none;
+        /* border: 1px solid black; */
+        width: 100%;
+        height: 380px;
+      }
+      .banner li a {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .banner li.li1 {
+        background-image: url(./img/banner01.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .banner li.li2 {
+        background-image: url(./img/banner02.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: none;
+      }
+      .banner li.li3 {
+        background-image: url(./img/banner03.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: none;
+      }
+      .banner li.li4 {
+        background-image: url(./img/banner04.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: none;
+      }
+      .banner .cut {
+        position: absolute;
+        width: 43px;
+        height: 75px;
+        opacity: 0.3;
+        margin-top: -38px;
+        top: 50%;
+        left: 50%;
+        background-color: #000;
+        font-size: 50px;
+        text-align: center;
+        line-height: 75px;
+        color: rgb(134, 130, 130);
+        font-weight: 100;
+      }
+      .banner .cut:hover {
+        opacity: 0.5;
+        cursor: pointer;
+      }
+      .banner .prev {
+        left: 150px;
+      }
+      .banner .next {
+        left: 1080px;
+      }
+      .banner .indicator {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+        top: 345px;
+      }
+      .banner .indicator a {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: #ccc;
+        margin: 0 5px;
+      }
+      .banner .indicator a.cur {
+        background-color: #f90;
+      }
+      /* 主体内容 */
+      .container .ind_3 .title,
+      .container .ind_2 .title,
+      .container .ind_1 .title {
+        font-weight: lighter;
+      }
+      .container .ind_3 h2,
+      .container .ind_2 h2,
+      .container .ind_1 h2 {
+        height: 40px;
+        margin-top: 20px;
+        border-bottom: 2px solid #ddd;
+      }
+      .container .ind_3 h2 span,
+      .container .ind_2 h2 span,
+      .container .ind_1 h2 span {
+        float: left;
+        text-align: center;
+        min-width: 100px;
+        line-height: 38px;
+        font-weight: 18px;
+        border-bottom: 2px solid #57bc4c;
+      }
+      .container .ind_3 h2 a,
+      .container .ind_2 h2 a,
+      .container .ind_1 h2 a {
+        float: right;
+        margin-top: 12px;
+        font-size: 14px;
+        color: #555;
+      }
+      .container .ind_3 h2 a:hover,
+      .container .ind_2 h2 a:hover,
+      .container .ind_1 h2 a:hover {
+        color: #f60;
+      }
+      .container .ind_2 ul,
+      .container .ind_1 ul {
+        list-style: none;
+      }
+      .container .ind_3 ul::after,
+      .container .ind_2 ul::after,
+      .container .ind_1 ul::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .container .ind_2 ul li,
+      .container .ind_1 ul li {
+        float: left;
+        margin: 20px 40px 0 0;
+        width: 220px;
+        height: 214px;
+        overflow: hidden;
+      }
+      .container .ind_2 ul li .a_img,
+      .container .ind_1 ul li .a_img {
+        display: block;
+        width: 220px;
+        height: 138px;
+        overflow: hidden;
+      }
+      .container .ind_2 ul li .a_text,
+      .container .ind_1 ul li .a_text {
+        display: block;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      .container .ind_2 ul li p,
+      .container .ind_1 ul li p {
+        color: #999;
+      }
+      .container .ind_2 ul li strong,
+      .container .ind_1 ul li strong {
+        font-size: 16px;
+        color: #f60;
+        font-weight: bold;
+      }
+      .container .ind_2 ul li.end,
+      .container .ind_1 ul li.end {
+        margin: 20px 0 0 0;
+      }
+      .pic1 {
+        /*基础样式*/
+        /* width: 200px; */
+        transform: scale(1); /*变形：缩放*/
+        transition: all 0.8s;
+      }
+      .big1 {
+        /*目标样式*/
+        /* width: 300px; */
+        transform: scale(1.1); /*变形：变为默认大小的1.5倍*/
+      }
+      /* 名师堂 */
+      .container .ind_3 ul{
+        list-style: none;
+        margin-top: 20px;
+      }
+      .container .ind_3 ul li{
+        float: left;
+        margin-right: 25px;
+        text-align: center;
+      }
+      .container .ind_3 ul li a{
+        display: block;
+        width: 180px;
+        height: 240px;
+      }
+      .container .ind_3 ul li.end1{
+        margin-right: 0;
+      }
+      .container .ind_3 ul li p{
+        font-size: 14px;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 8px;
+      }
+      .container .ind_3 ul li span{
+        display: block;
+        color: #999;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+      }
+      /* footer */
+      .footer{
+        margin-top: 50px;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        height: 198px;
+      }
+      .footer .container .clearfloat::after{
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .footer .container .clearfloat ul{
+        float: left;
+        list-style: none;
+        margin: 10px 0;
+      }
+      .footer .container .clearfloat dl{
+        float: right;
+        height: 60px;
+        margin-top: 30px;
+      }
+      .footer .container .clearfloat dl dd{
+        font-size: 18px;
+        height: 30px;
+        line-height: 30px;
+        color: #666;
+        margin-left: 20px;
+      }
+      .footer .container .clearfloat ul li{
+        float: left;
+        margin-right: 110px;
+      }
+      .footer .container .clearfloat ul li a{
+        display: block;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        color: #666;
+      }
+      .footer .container .clearfloat ul li h5{
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+        font-weight: lighter;
+      }
+      .footer .container .f_2{
+        text-align: center;
+        color: #999;
+        padding: 8px 0;
+        border-top: 1px solid #ddd;
+        height: 57px;
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 顶部条 -->
+    <div class="topbar">
+      <div class="container">
+        <a href="#">
+          <span class="fa fa-star"></span>
+          收藏i前端
+        </a>
+        <a href="#">
+          <span class="fa fa-mobile-phone fa-lg"></span>
+          <span class="theme-reverse">下载手机客户端</span>
+        </a>
+        <span>
+          <span class="fa fa-envelope"></span>
+          反馈邮箱：iweb@tedu.cn
+        </span>
+        <span>
+          <span class="fa fa-mobile-phone fa-lg"></span>
+          客服热线：4008-200-200
+        </span>
+      </div>
+    </div>
+
+    <!-- 搜索条 -->
+    <div class="searchbar">
+      <div class="container">
+        <!-- 1.LOGO -->
+        <img src="img/logo.png" alt="iWeb LOGO" />
+
+        <!-- 3.我的购物车 -->
+        <div class="cart-container" id="myCart">
+          <!-- 购物车：z-index要高于“下拉菜单” -->
+          <div class="cart" id="cart">
+            <span class="fa fa-shopping-cart fa-lg"></span>
+            <span>我的购物车(<b>0</b>)</span>
+            <span class="fa fa-caret-down caret" id="caret"></span>
+          </div>
+          <!-- 下拉菜单 -->
+          <div class="dropdown" id="dropdown">请登录后查看您的购物车</div>
+        </div>
+
+        <!-- 2.输入框 -->
+        <div class="search">
+          <input type="text" placeholder="课程搜索" /><span
+            class="fa fa-search fa-lg"
+          ></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="navbar">
+      <div class="container">
+        <div class="nav">
+          <ul>
+            <li class="active"><a href="#">首页</a></li>
+            <li><a href="#">全部课程</a></li>
+            <li><a href="#">基础课程</a></li>
+            <li><a href="#">核心课程</a></li>
+            <li><a href="#">进阶课程</a></li>
+            <li><a href="#">名师堂</a></li>
+            <li><a href="#">社区</a></li>
+          </ul>
+        </div>
+        <div class="nav_user">
+          <p><a href="#">登入</a>|<a href="#">注册</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 图片轮播 -->
+    <div class="banner">
+      <ul>
+        <li class="li1"><a href="#"></a></li>
+        <li class="li2"><a href="#"></a></li>
+        <li class="li3"><a href="#"></a></li>
+        <li class="li4"><a href="#"></a></li>
+      </ul>
+      <span class="cut prev">&lt</span>
+      <span class="cut next">&gt</span>
+      <div class="indicator">
+        <a class="cur" href="#"></a>
+        <a class="" href="#"></a>
+        <a class="" href="#"></a>
+        <a class="" href="#"></a>
+      </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="container">
+      <div class="ind_1">
+        <h2 class="title">
+          <span>最新课程</span>
+          <a href="#">更多</a>
+        </h2>
+        <ul class="clearfloat">
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/01.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">12-微信小程序开发</a>
+            <p>讲师：程涛</p>
+            <strong>￥ 599.00</strong>
+          </li>
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/02.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">11-Unity地形搭建</a>
+            <p>讲师：张东</p>
+            <strong>￥ 600.00</strong>
+          </li>
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/03.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">10-UI控件之基础控件</a>
+            <p>讲师：李然</p>
+            <strong>￥ 450.00</strong>
+          </li>
+          <li class="end pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/04.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">09-微信小程序高级</a>
+            <p>讲师：成亮</p>
+            <strong>￥ 200.00</strong>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="ind_2">
+        <h2 class="title">
+          <span>热门课程</span>
+          <a href="#">更多</a>
+        </h2>
+        <ul class="clearfloat">
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/05.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">09-微信小程序高级</a>
+            <p>讲师：成亮</p>
+            <strong>￥ 200.00</strong>
+          </li>
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/06.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">12-微信小程序开发</a>
+            <p>讲师：程涛</p>
+            <strong>￥ 599.00</strong>
+          </li>
+          <li class="pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/07.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">06-jQuery操作DOM（上）</a>
+            <p>讲师：李然</p>
+            <strong>￥ 600.00</strong>
+          </li>
+          <li class="end pic2">
+            <a href="#" class="a_img">
+              <img class="pic1" src="./img/course/08.jpg" alt="" />
+            </a>
+            <a href="#" class="a_text">05-零基础绘图入门（上）</a>
+            <p>讲师：成亮</p>
+            <strong>￥ 350.00</strong>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ind_3">
+        <h2 class="title">
+          <span>名师堂</span>
+          <a href="#">更多</a>
+        </h2>
+        <ul>
+          <li>
+            <a href="#">
+              <img src="./img/teacher/cl.jpg" alt="">
+            </a>
+            <p>讲师：成亮</p>
+            <span>主讲：WEB全栈开发</span>
+          </li>
+          <li>
+            <a href="#">
+              <img src="./img/teacher/ct.jpg" alt="">
+            </a>
+            <p>讲师：李然</p>
+            <span>主讲：高级网页设计</span>
+          </li>
+          <li>
+            <a href="#">
+              <img src="./img/teacher/jyx.jpg" alt="">
+            </a>
+            <p>讲师：张东</p>
+            <span>主讲：JS高级编程</span>
+          </li>
+          <li>
+            <a href="#">
+              <img src="./img/teacher/lr.jpg" alt="">
+            </a>
+            <p>讲师：程涛</p>
+            <span>主讲：移动APP开发</span>
+          </li>
+          <li class="end1">
+            <a href="#">
+              <img src="./img/teacher/wh.jpg" alt="">
+            </a>
+            <p>讲师：纪盈鑫</p>
+            <span>主讲：前端框架开发</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="clearfloat">
+          <ul>
+            <li>
+              <h5>关于i前端</h5>
+              <a href="#">发展历程</a>
+              <a href="#">管理团队</a>
+              <a href="#">企业文化</a>
+              <a href="#">加入我们</a>
+            </li>
+            <li>
+              <h5>新手帮助</h5>
+              <a href="#">学员账号</a>
+              <a href="#">选课流程</a>
+              <a href="#">网报流程</a>
+              <a href="#">上课地点</a>
+            </li>
+            <li>
+              <h5>常见问题</h5>
+              <a href="#">如何注册</a>
+              <a href="#">如何搜课</a>
+              <a href="#">如何报名</a>
+              <a href="#">如何缴费</a>
+            </li>
+            <li>
+              <h5>联系我们</h5>
+              <a href="#">校区电话</a>
+              <a href="#">意见建议</a>
+              <a href="#">联系邮箱</a>
+            </li>
+          </ul>
+          <dl>
+            <dt></dt>
+            <dd>
+              客服热线
+              <br>
+              4008-220-220 ( 9:00 - 24:00 )
+            </dd>
+          </dl>
+        </div>
+        <div class="f_2">
+          Copyright © 2016 iqianduan.com, All Rights Reserved 版权所有
+          <br>
+          北京前端教育科技有限公司　京ICP备123456号-1 京公网安备110180201608号
+        </div>
+      </div>
+    </footer>
+    <script>
+      // 鼠标进入“我的购物车”则后面的小三角开始旋转；离开则转回来
+      myCart.onmouseenter = () => {
+        caret.classList.add("caret-rotate");
+        cart.classList.add("open");
+        dropdown.classList.add("open");
+      };
+      myCart.onmouseleave = () => {
+        caret.classList.remove("caret-rotate");
+        cart.classList.remove("open");
+        dropdown.classList.remove("open");
+      };
+      let list2 = document.querySelectorAll(".pic2");
+      let list1 = document.querySelectorAll(".pic1");
+      //console.log(list)  //list就是上述方法返回的数组
+      for (let i = 0; i < list2.length; i++) {
+        // let pic = list[i]; //从数组中取出第i个图片
+        // let pic = list[i]; 
+        // //鼠标进入该图片，则添加.big1
+        list2[i].onmouseenter = () => {
+          list1[i].classList.add("big1");
+        };
+        //鼠标离开该图片，则删除.big1
+        list2[i].onmouseleave = () => {
+          list1[i].classList.remove("big1");
+        };
+      }
+    </script>
+  </body>
 </html>
